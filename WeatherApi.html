@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Wonder Weather</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Weather App</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+</head>
+<body>
+  <!-- Background video -->
+  <video id="weatherVideo" class="weather-video" autoplay muted loop></video>
+
+  <!-- Gradient overlay -->
+  <div class="gradient-overlay"></div>
+
+  <!-- Main container -->
+  <div class="app-container">
+    <div class="glass-card">
+      <header class="top-section">
+        <div class="location">
+          <h1 id="cityName">Campbellton</h1>
+          <p id="conditionText">Loading...</p>
+        </div>
+        <div class="search">
+    <input id="cityInput" type="text" placeholder="Search city..." />
+    <button id="searchBtn">Search</button>
+
+    <div id="autocompleteList" class="autocomplete-list"></div>
+</div>
+
+      </header>
+
+      <main class="middle-section">
+        <div class="temp-block">
+          <span id="tempValue" class="temp">--°</span>
+          <span id="feelsLike">Feels like --°</span>
+        </div>
+        <div class="icon-block">
+          <lottie-player id="weatherIcon"
+               autoplay 
+               loop
+               style="width: 140px; height: 140px;">
+</lottie-player>
+        </div>
+        <div class="details-block">
+          <div class="detail glass-detail">
+            <span>Min Temp</span>
+            <strong id="minTempValue">--°</strong>
+          </div>
+          <div class="detail glass-detail">
+            <span>Max Temp</span>
+            <strong id="maxTempValue">--°</strong>
+          </div>
+      </div>
+        <div class="forecast-block">
+          <h2>5-Day Forecast</h2>
+          <div id="forecastContainer" class="forecast-container">
+            <!-- Forecast items will be dynamically added here -->
+          </div>
+      </main>
+
+      <footer class="bottom-section">
+        <div class="detail glass-detail">
+          <span>Humidity</span>
+          <strong id="humidityValue">--%</strong>
+        </div>
+        <div class="detail glass-detail">
+          <span>Wind</span>
+          <strong id="windValue">-- mph</strong>
+        </div>
+        <div class="detail glass-detail">
+          <span>Pressure</span>
+          <strong id="pressureValue">-- hPa</strong>
+        </div>
+      </footer>
+
+      <p id="errorMsg" class="error-msg"></p>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

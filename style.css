@@ -1,0 +1,342 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
+}
+
+body{ 
+  min-height: 100vh;
+  color: #fff;
+  overflow: hidden;
+}
+.weather-video{
+ position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+  pointer-events: none;
+  transition: opacity 1.2s ease;
+  opacity: 0;
+}
+.weather-video.loaded {
+    opacity: 0.35;
+}
+
+
+/* Gradient overlay */
+.gradient-overlay {
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle at top, rgba(255,255,255,0.2), transparent),
+              linear-gradient(to bottom, rgba(0,0,0,0.4), rgba(0,0,0,0.8));
+  mix-blend-mode: multiply;
+  z-index: 1;
+}
+
+/* Main app container */
+.app-container {
+  position: relative;
+  z-index: 2;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
+/* Glass card */
+.glass-card {
+  width: 100%;
+  max-width: 900px;
+  background: rgba(255, 255, 255, 0.35);
+  backdrop-filter: blur(5px);
+ -webkit-backdrop-filter: blur(20px);
+  border-radius: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.50);
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+  animation: fadeUp 1.2s ease forwards;
+  opacity: 0;
+  transform: translateY(40px);
+}
+
+@keyframes fadeUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.top-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.location h1 {
+  font-size: 2.4rem;
+  font-weight: 600;
+}
+
+.location p {
+  opacity: 0.8;
+}
+
+.search {
+position: relative;
+  display: flex;
+  gap: 0.5rem;
+}
+
+.search input {
+  padding: 0.6rem 0.9rem;
+  border-radius: 999px;
+  border: none;
+  outline: none;
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
+}
+.search button {
+  padding: 0.6rem 1rem;
+  border-radius: 999px;
+  border: none;
+  cursor: pointer;
+  background: rgba(255, 255, 255, 0.3);
+  color: #ffff;
+  font-weight: 600;
+}
+.search button:hover {
+  background: rgba(255, 255, 255, 0.5);
+}
+.search button:active {
+  background: rgba(255, 255, 255, 0.50);
+}
+@keyframes blurReveal {
+    0% {
+        opacity: 0;
+        transform: translateY(-6px);
+        backdrop-filter: blur(0px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+        backdrop-filter: blur(10px);
+    }
+}
+
+
+.autocomplete-list {
+    position: absolute;
+    top: calc(100% + 8px); /* pushes it down 8px */
+    left: 0;
+    width: 70%;
+    background: rgba(0,0,0,0.6);
+    backdrop-filter: blur(10px);
+    border-radius: 12px 0 12px 12px;
+    max-height: 200px;
+    overflow-y: auto;
+    display: none;
+    z-index: 20;
+    animation: blurReveal 0.25s ease-out;
+}
+
+.autocomplete-item {
+    padding: 0.8rem 1rem;
+    cursor: pointer;
+    color: #fff;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.autocomplete-item:hover {
+    background: rgba(255,255,255,0.15);
+}
+
+.autocomplete-item:hover {
+    background: rgba(255,255,255,0.15);
+}
+
+/* Middle */
+.middle-section {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 2rem;
+  width: 100%;
+}
+
+.temp-block .temp {
+  font-size: 4.5rem;
+  font-weight: 600;
+  animation: tempFade 1.2s ease forwards;
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+@keyframes tempFade {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.temp-block span {
+  display: block;
+  margin-top: 0.4rem;
+  opacity: 0.85;
+}
+#weatherIcon {
+  filter: drop-shadow(0 0 10px rgba(255,255,255,0.3));
+}
+
+.icon-block {
+  margin-left: -55px;
+  margin-top: -110px;
+}
+
+
+.icon-block img {
+  margin-top: 110px;
+  width: -800px;
+  height: -800px;
+  animation: popIn 1s ease forwards;
+  opacity: 0;
+  transform: scale(0.8);
+}
+@keyframes popIn {
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+
+.details-block{
+ margin-left: -30px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.minTemp span, .maxTemp span {
+  opacity: 0.8;
+}
+.minTempValue, .maxTempValue {
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+#forecast-block {
+  margin-left: -20px;
+  margin-top: 1rem;
+  margin-right: -100px;
+}
+
+#forecastContainer {
+  width: 430px;
+  display: flex;
+  gap: 0.5rem;
+  overflow-x: auto;
+  padding-bottom: 0.5rem;
+}
+.forecast-day {
+  min-width: 75px;
+  padding: 0.8rem;
+  background: rgba(255,255,255,0.15);
+  backdrop-filter: blur(10px);
+  border-radius: 12px;
+  text-align: center;
+  color: #fff;
+  flex-shrink: 0;
+}
+
+.forecast-day span {
+  display: block;
+  opacity: 0.85;
+}
+
+
+/* Bottom details */
+.bottom-section {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+.glass-detail {
+  flex: 1;
+  min-width: 150px;
+  padding: 1rem;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  animation: detailFade 1.4s ease forwards;
+  opacity: 0;
+  transform: translateY(20px);
+}
+@keyframes detailFade {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.glass-detail span {
+  opacity: 0.8;
+}
+
+.glass-detail strong {
+  font-size: 1.2rem;
+}
+
+/* Error */
+.error-msg {
+  margin-top: 0.5rem;
+  color: #ffb3b3;
+  font-size: 0.95rem;
+}
+
+/* Mobile layout */
+@media (max-width: 768px) {
+  body {
+    overflow-y: auto;
+  }
+
+  .app-container {
+    align-items: flex-start;
+    padding: 1.5rem;
+  }
+
+  .glass-card {
+    max-width: 100%;
+    min-height: 80vh;
+  }
+
+  .top-section {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .middle-section {
+    flex-direction: column;
+     align-items: flex-start;
+  }
+
+  .temp-block .temp {
+    font-size: 3.5rem;
+  }
+
+  .icon-block img {
+    width: 110px;
+    height: 110px;
+  }
+}
