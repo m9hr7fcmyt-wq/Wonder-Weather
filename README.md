@@ -1,4 +1,4 @@
-# Wonder-Weather
+
 # Wonder Weather
 
 A simple and clean weather application that fetches real-time weather data using a public weather API.  
